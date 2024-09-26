@@ -5,6 +5,7 @@ on:
 
 jobs:
   repro:
+    runs-on: ubuntu
     defaults:
       run:
         shell: bash
