@@ -17,15 +17,19 @@ jobs:
 
       - run: |
           cat << EOF > Hello.java
-            class HelloWorld {
+            class Hello {
               public static void main(String[] args) {
                 System.out.println("hello world!");
               }
             }
           EOF
+
+          touch sample.css
+
           docker run --rm -v $(pwd):/app -w /app maven:3.8.4-amazoncorretto-17 /bin/sh -c '
             java -version
             javac Hello.java
+            java Hello
 
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
             export NVM_DIR="$HOME/.nvm"
