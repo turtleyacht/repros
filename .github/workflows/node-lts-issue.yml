@@ -23,7 +23,7 @@ jobs:
               }
             }
           EOF
-          docker run -it --rm -v $(pwd):/app -w /app maven:3.8.4-amazoncorretto-17 /bin/sh -c '
+          docker run --rm -v $(pwd):/app -w /app maven:3.8.4-amazoncorretto-17 /bin/sh -c '
             #curl ... # Install nvm
             #... # Init nvm
             #run sonar # ...
