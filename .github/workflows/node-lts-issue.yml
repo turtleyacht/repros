@@ -24,9 +24,13 @@ jobs:
             }
           EOF
           docker run --rm -v $(pwd):/app -w /app maven:3.8.4-amazoncorretto-17 /bin/sh -c '
-            #curl ... # Install nvm
-            #... # Init nvm
-            #run sonar # ...
             java -version
             javac Hello.java
+
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install 16
+
+            nvm ls
           '
