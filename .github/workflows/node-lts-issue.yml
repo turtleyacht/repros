@@ -19,7 +19,7 @@ jobs:
           cat << EOF > Hello.java
             class HelloWorld {
               public static void main(String[] args) {
-                System.out.println('hello world!');
+                System.out.println("hello world!");
               }
             }
           EOF
@@ -27,6 +27,6 @@ jobs:
             #curl ... # Install nvm
             #... # Init nvm
             #run sonar # ...
-            java -v
+            java -version
             javac Hello.java
           '
