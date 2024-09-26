@@ -1,0 +1,27 @@
+name: sonar-node-lts-repro
+
+on:
+  workflow_dispatch:
+
+jobs:
+  repro:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.job }}-${{ github.run_number }}
+    steps:
+      - run: |
+          cat << EOF > Hello.java
+            class HelloWorld {
+              public static void main(String[] args) {
+                System.out.println('hello world!');
+              }
+            }
+          EOF
+          docker run -it --rm -v $(pwd):/app -w /app maven:3.8.4-amazoncorretto-17 /bin/sh -c '
+            #curl ... # Install nvm
+            #... # Init nvm
+            #run sonar # ...
+            java -v
+            javac Hello.java
+          '
