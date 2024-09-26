@@ -11,6 +11,10 @@ jobs:
         shell: bash
         working-directory: ${{ github.job }}-${{ github.run_number }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ${{ github.job }}-${{ github.run_number }}
+
       - run: |
           cat << EOF > Hello.java
             class HelloWorld {
