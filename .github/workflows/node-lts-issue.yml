@@ -16,6 +16,18 @@ jobs:
           path: ${{ github.job }}-${{ github.run_number }}
 
       - run: |
+          cat << EOF > pom.xml
+          <?xml version="1.0" encoding="UTF-8"?>
+          <project xmlns="http://maven.apache.org/POM/4.0.0"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+              <modelVersion>4.0.0</modelVersion>
+
+              <groupId>org.turtleyacht.hello</groupId>
+              <artifactId>hello</artifactId>
+              <version>0.0.1</version>
+          </project>
+          EOF
+
           cat << EOF > Hello.java
             class Hello {
               public static void main(String[] args) {
@@ -37,4 +49,19 @@ jobs:
             nvm install 16
 
             nvm ls
+
+            mvn clean install \
+              org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+              -Dsonar.host.url=*** \
+              -Dsonar.organization=*** \
+              -Dsonar.branch.name=*** \
+              -Dsonar.projectKey=*** \
+              -Dsonar.projectName=*** \
+              -Dsonar.projectVersion=*** \
+              -Dsonar.exclusions=**/*.config,**/*.css,**/*.html,**/*.ico,**/*.jar,**/*.js,**/*.json,**/*.md,**/*.properties,**/*.rss,**/*.scss,**/*.txt,**/*.ts,**/*.tsx,**/*.war,**/*.xml,**/*.yaml,**/*.yml
+              -Dsonar.log.level=DEBUG \
+              -Dsonar.verbose=true \
+              -Dsonar.scm.exclusions.disabled=false \
+              -Dsonar.nodejs.executable=/root/.nvm/versions/node/v16.20.2/bin/node  \
+              -Dsonar.token=***
           '
